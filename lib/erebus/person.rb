@@ -19,22 +19,10 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-require "openssl"
-require "base64"
-require "json"
+class Erebus::Person
 
-module Erebus
-	extend self
-
-	def instance=(instance)
-    @instance = instance
-  end
-
-  def instance
-    @instance ||= Erebus::Instance.new
+	def initialize(erebus)
+    @erebus = erebus
   end
 
 end
-
-require "erebus/eth"
-require "erebus/person"

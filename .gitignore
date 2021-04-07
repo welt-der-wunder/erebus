@@ -1,1 +1,3 @@
 /.ruby-version
+/.gem
+.DS_Store
