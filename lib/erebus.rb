@@ -19,22 +19,21 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+require 'net/http'
+require 'uri'
 require "openssl"
+require 'securerandom'
 require "base64"
 require "json"
 
 module Erebus
 	extend self
-
-	def instance=(instance)
-    @instance = instance
-  end
-
-  def instance
-    @instance ||= Erebus::Instance.new
-  end
-
 end
 
+# Helper Modules
+require "erebus/helper"
+require "erebus/rpc"
+
+# JSON RPC 2.0 API
 require "erebus/eth"
 require "erebus/person"

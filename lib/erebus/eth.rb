@@ -21,8 +21,39 @@
 
 class Erebus::Eth
 
-	def initialize(erebus)
-    @erebus = erebus
+	attr_accessor :host, :port, :private_raw_key
+
+  def initialize(private_raw_key = nil, host = "127.0.0.1", port = "8545")
+    @private_raw_key = private_raw_key
+    @host = host
+    @port = port
+  end
+
+  # def call(params_hash)
+  # 	return "#{@private_raw_key} #{params_hash}"
+  # end
+
+  # def send_transaction(params_hash)
+  # 	return "#{@private_raw_key} #{params_hash}"
+  # end
+
+  # def send_raw_transaction(params_hash)
+  # 	return "#{@private_raw_key} #{params_hash}"
+  # end
+
+  def block_number
+  	response = query(nil, __method__)
+  	return "#{response}"
+  end
+
+  private
+  def query(params_hash, method)
+  	response = Erebus::RPC.query("eth_#{sanitize(method)}", params_hash, "http://#{@host}:#{@port}")
+  	return response
+  end
+
+  def sanitize(method)
+  	method.to_s.camelize.uncapitalize
   end
 
 end

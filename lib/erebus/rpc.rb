@@ -20,5 +20,35 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 module Erebus
-  VERSION = "0.0.1-alpha".freeze
+
+	module RPC
+		extend self
+
+		def query(method, params_hash, uri_string)
+			uri = URI.parse(uri_string)
+			header = {"Content-Type": "application/json"}
+			http = Net::HTTP.new(uri.host, uri.port)
+			request = Net::HTTP::Post.new(uri.request_uri, header)
+			request.body = query_data_block(method, params_hash)
+			response = http.request(request)
+			return response
+		end
+
+		private
+
+		def query_data_block(method, params_hash)
+			data = Hash.new
+			data[:jsonrpc] = "2.0"
+			data[:method] = "#{method}"
+			if params_hash.nil?
+				data[:params] = []
+			else
+				data[:params] = [params_hash]
+			end
+			data[:id] = SecureRandom.uuid
+			return data.to_json
+		end
+
+	end
+
 end

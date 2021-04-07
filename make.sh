@@ -1,1 +1,1 @@
-gem build erebus.gemspec && gem install erebus-0.0.1.gem
+gem build erebus.gemspec && gem install erebus-0.0.1.pre.alpha.gem
