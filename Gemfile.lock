@@ -1,0 +1,23 @@
+PATH
+  remote: .
+  specs:
+    erebus (0.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ipaddr (1.2.2)
+    json (2.1.0)
+    openssl (2.1.2)
+      ipaddr
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  erebus!
+  json (~> 2.1.0)
+  openssl (~> 2.1.2)
+
+BUNDLED WITH
+   2.1.4
