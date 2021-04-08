@@ -21,36 +21,36 @@
 
 module Erebus
 
-	module RPC
-		extend self
+  module RPC
+    extend self
 
-		def query(method, params, uri_string)
-			uri = URI.parse(uri_string)
-			header = {"Content-Type": "application/json"}
-			http = Net::HTTP.new(uri.host, uri.port)
-			request = Net::HTTP::Post.new(uri.request_uri, header)
-			request.body = json_query_object(method, params)
-			puts "#{request.body}" # DEBUG
-			response = http.request(request)
-			return response_object(response.body)
-		end
+    def query(method, params, uri_string)
+      uri = URI.parse(uri_string)
+      header = {"Content-Type": "application/json"}
+      http = Net::HTTP.new(uri.host, uri.port)
+      request = Net::HTTP::Post.new(uri.request_uri, header)
+      request.body = json_query_object(method, params)
+      puts "#{request.body}" # DEBUG
+      response = http.request(request)
+      return response_object(response.body)
+    end
 
-		private
+    private
 
-		def json_query_object(method, params)
-			data = Hash.new
-			data[:jsonrpc] = "2.0"
-			data[:method] = "#{method}"
-			data[:params] = params ? params : []
-			data[:id] = SecureRandom.uuid
-			return data.to_json
-		end
+    def json_query_object(method, params)
+      data = Hash.new
+      data[:jsonrpc] = "2.0"
+      data[:method] = "#{method}"
+      data[:params] = params ? params : []
+      data[:id] = SecureRandom.uuid
+      return data.to_json
+    end
 
-		def response_object(body)
-			hash_object = JSON.parse(body)
-			return hash_object.transform_keys(&:to_sym)
-		end
+    def response_object(body)
+      hash_object = JSON.parse(body)
+      return hash_object.transform_keys(&:to_sym)
+    end
 
-	end
+  end
 
 end

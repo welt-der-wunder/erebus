@@ -1,6 +1,6 @@
 class String
 
-	def camelize(uppercase_first_letter = true)
+  def camelize(uppercase_first_letter = true)
     string = self
     if uppercase_first_letter
       string = string.sub(/^[a-z\d]*/) { |match| match.capitalize }

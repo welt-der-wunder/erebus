@@ -27,7 +27,7 @@ require "base64"
 require "json"
 
 module Erebus
-	extend self
+  extend self
 end
 
 # Helper Modules

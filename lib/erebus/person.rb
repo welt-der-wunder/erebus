@@ -21,7 +21,7 @@
 
 class Erebus::Person
 
-	def initialize(erebus)
+  def initialize(erebus)
     @erebus = erebus
   end
 

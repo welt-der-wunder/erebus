@@ -21,7 +21,7 @@
 
 class Erebus::Eth
 
-	attr_accessor :host, :port, :private_raw_key
+  attr_accessor :host, :port, :private_raw_key
 
   def initialize(private_raw_key = nil, host = "127.0.0.1", port = "8545")
     @private_raw_key = private_raw_key
@@ -74,8 +74,8 @@ class Erebus::Eth
   # Hex of the current block number the client is on
   #
   def block_number
-  	response = query(nil, __method__)
-  	return response
+    response = query(nil, __method__)
+    return response
   end
 
   # eth_gasPrice:
@@ -95,12 +95,12 @@ class Erebus::Eth
   private
 
   def query(params_hash, method)
-  	response = Erebus::RPC.query("eth_#{sanitize(method)}", params_hash, "http://#{@host}:#{@port}")
-  	return response
+    response = Erebus::RPC.query("eth_#{sanitize(method)}", params_hash, "http://#{@host}:#{@port}")
+    return response
   end
 
   def sanitize(method)
-  	method.to_s.camelize.uncapitalize
+    method.to_s.camelize.uncapitalize
   end
 
 end
