@@ -29,17 +29,67 @@ class Erebus::Eth
     @port = port
   end
 
-  # JSON RPC 2.0 API Methods
+  # ETH Namespace = JSON RPC 2.0 API Methods
 
-  def get_balance(address, block_number)
+  # eth_accounts:
+  # Returns a list of addresses owned by client
+  #
+  # Parameter:
+  # none
+  #
+  # Returns:
+  # Array of addresses owned by the client
+  #
+  def accounts
+    response = query(nil, __method__)
+    return response
+  end
+
+  # eth_getBalance:
+  # Returns the balance of the account of given address
+  #
+  # Parameter:
+  # 1. WIF address to check for balance
+  # 2. Hex block number, or the string "latest", "earliest" or "pending" (optional)
+  #
+  # Example Parameter:
+  # get_balance('0xc94770007dda54cF92009BFF0dE90c06F603a09f','latest')
+  #
+  # Returns:
+  # Hex of the current balance in wei
+  #
+  def get_balance(address, block_number = "latest")
     params = [ address, block_number ]
     response = query(params, __method__)
     return response
   end
 
+  # eth_blockNumber:
+  # Returns the number of most recent block
+  #
+  # Parameter:
+  # none
+  #
+  # Returns:
+  # Hex of the current block number the client is on
+  #
   def block_number
   	response = query(nil, __method__)
   	return response
+  end
+
+  # eth_gasPrice:
+  # Returns the current price per gas in wei
+  #
+  # Parameter:
+  # none
+  #
+  # Returns:
+  # Integer of the current gas price in wei
+  #
+  def gas_price
+    response = query(nil, __method__)
+    return response
   end
 
   private
