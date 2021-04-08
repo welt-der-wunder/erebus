@@ -24,29 +24,31 @@ module Erebus
 	module RPC
 		extend self
 
-		def query(method, params_hash, uri_string)
+		def query(method, params, uri_string)
 			uri = URI.parse(uri_string)
 			header = {"Content-Type": "application/json"}
 			http = Net::HTTP.new(uri.host, uri.port)
 			request = Net::HTTP::Post.new(uri.request_uri, header)
-			request.body = query_data_block(method, params_hash)
+			request.body = json_query_object(method, params)
+			puts "#{request.body}" # DEBUG
 			response = http.request(request)
-			return response
+			return response_object(response.body)
 		end
 
 		private
 
-		def query_data_block(method, params_hash)
+		def json_query_object(method, params)
 			data = Hash.new
 			data[:jsonrpc] = "2.0"
 			data[:method] = "#{method}"
-			if params_hash.nil?
-				data[:params] = []
-			else
-				data[:params] = [params_hash]
-			end
+			data[:params] = params ? params : []
 			data[:id] = SecureRandom.uuid
 			return data.to_json
+		end
+
+		def response_object(body)
+			hash_object = JSON.parse(body)
+			return hash_object.transform_keys(&:to_sym)
 		end
 
 	end

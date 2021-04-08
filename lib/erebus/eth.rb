@@ -29,24 +29,21 @@ class Erebus::Eth
     @port = port
   end
 
-  # def call(params_hash)
-  # 	return "#{@private_raw_key} #{params_hash}"
-  # end
+  # JSON RPC 2.0 API Methods
 
-  # def send_transaction(params_hash)
-  # 	return "#{@private_raw_key} #{params_hash}"
-  # end
-
-  # def send_raw_transaction(params_hash)
-  # 	return "#{@private_raw_key} #{params_hash}"
-  # end
+  def get_balance(address, block_number)
+    params = [ address, block_number ]
+    response = query(params, __method__)
+    return response
+  end
 
   def block_number
   	response = query(nil, __method__)
-  	return "#{response}"
+  	return response
   end
 
   private
+
   def query(params_hash, method)
   	response = Erebus::RPC.query("eth_#{sanitize(method)}", params_hash, "http://#{@host}:#{@port}")
   	return response
